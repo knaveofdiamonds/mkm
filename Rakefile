@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "mkm"
   gem.homepage = "http://github.com/knaveofdiamonds/mkm"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = "Ruby interface to the magiccardmarket.eu API."
+  gem.description = "Ruby interface to the magiccardmarket.eu API."
   gem.email = "roland.swingler@gmail.com"
   gem.authors = ["Roland Swingler"]
   # dependencies defined in Gemfile

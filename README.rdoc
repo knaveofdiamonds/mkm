@@ -1,6 +1,6 @@
 = mkm
 
-Description goes here.
+Ruby interface to the magiccardmarket.eu API.
 
 == Contributing to mkm
  
