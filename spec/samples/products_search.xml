@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<response>
+  <product>
+    <idProduct>20964</idProduct>
+    <idMetaproduct>10498</idMetaproduct>
+    <name>
+      <idLanguage>1</idLanguage>
+      <languageName>English</languageName>
+      <productName>Zealous Persecution</productName>
+    </name>
+    <name>
+      <idLanguage>2</idLanguage>
+      <languageName>French</languageName>
+      <productName>Persécution zélée</productName>
+    </name>
+    <name>
+      <idLanguage>3</idLanguage>
+      <languageName>German</languageName>
+      <productName>Fanatische Verfolgung</productName>
+    </name>
+    <name>
+      <idLanguage>4</idLanguage>
+      <languageName>Spanish</languageName>
+      <productName>Persecusión ferviente</productName>
+    </name>
+    <name>
+      <idLanguage>5</idLanguage>
+      <languageName>Italian</languageName>
+      <productName>Persecuzione Zelante</productName>
+    </name>
+    <category>
+      <idCategory>1</idCategory>
+      <categoryName>Magic Single</categoryName>
+    </category>
+    <priceGuide>
+      <SELL>0.86</SELL>
+      <LOW>0.45</LOW>
+      <AVG>1.63</AVG>
+    </priceGuide>
+    <image>./img/cards/Alara_Reborn/zealous_persecution.jpg</image>
+    <expansion>Alara Reborn</expansion>
+    <rarity>Uncommon</rarity>
+  </product>
+  <product>
+    <idProduct>260808</idProduct>
+    <idMetaproduct>10498</idMetaproduct>
+    <name>
+      <idLanguage>1</idLanguage>
+      <languageName>English</languageName>
+      <productName>Zealous Persecution</productName>
+    </name>
+    <name>
+      <idLanguage>2</idLanguage>
+      <languageName>French</languageName>
+      <productName>Persécution zélée</productName>
+    </name>
+    <name>
+      <idLanguage>3</idLanguage>
+      <languageName>German</languageName>
+      <productName>Fanatische Verfolgung</productName>
+    </name>
+    <name>
+      <idLanguage>4</idLanguage>
+      <languageName>Spanish</languageName>
+      <productName>Persecusión ferviente</productName>
+    </name>
+    <name>
+      <idLanguage>5</idLanguage>
+      <languageName>Italian</languageName>
+      <productName>Persecuzione Zelante</productName>
+    </name>
+    <category>
+      <idCategory>1</idCategory>
+      <categoryName>Magic Single</categoryName>
+    </category>
+    <priceGuide>
+      <SELL>0.71</SELL>
+      <LOW>0.45</LOW>
+      <AVG>1.28</AVG>
+    </priceGuide>
+    <image>./img/cards/Duel_Decks_Sorin_vs._Tibalt/zealous_persecution.jpg</image>
+    <expansion>Duel Decks: Sorin vs. Tibalt</expansion>
+    <rarity>Uncommon</rarity>
+  </product>
+  <product>
+    <idProduct>267037</idProduct>
+    <idMetaproduct>10498</idMetaproduct>
+    <name>
+      <idLanguage>1</idLanguage>
+      <languageName>English</languageName>
+      <productName>Zealous Persecution</productName>
+    </name>
+    <name>
+      <idLanguage>2</idLanguage>
+      <languageName>French</languageName>
+      <productName>Persécution zélée</productName>
+    </name>
+    <name>
+      <idLanguage>3</idLanguage>
+      <languageName>German</languageName>
+      <productName>Fanatische Verfolgung</productName>
+    </name>
+    <name>
+      <idLanguage>4</idLanguage>
+      <languageName>Spanish</languageName>
+      <productName>Persecusión ferviente</productName>
+    </name>
+    <name>
+      <idLanguage>5</idLanguage>
+      <languageName>Italian</languageName>
+      <productName>Persecuzione Zelante</productName>
+    </name>
+    <category>
+      <idCategory>1</idCategory>
+      <categoryName>Magic Single</categoryName>
+    </category>
+    <priceGuide>
+      <SELL>0.51</SELL>
+      <LOW>0.26</LOW>
+      <AVG>0.58</AVG>
+    </priceGuide>
+    <image>./img/cards/Modern_Event_Deck_2014/zealous_persecution.jpg</image>
+    <expansion>Modern Event Deck 2014</expansion>
+    <rarity>Uncommon</rarity>
+  </product>
+</response>
