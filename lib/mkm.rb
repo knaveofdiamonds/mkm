@@ -1,0 +1,133 @@
+require 'faraday'
+require 'ox'
+require 'uri'
+
+module Mkm
+  # Creates a new MKM client, given a user and an API key. You can
+  # optionally pass a Faraday connection if you want custom HTTP
+  # handling.
+  def self.client(user, api_key, http=Faraday.new("https://www.mkmapi.eu"))
+    Client.new(Session.new(user, api_key, http), Parser.new)
+  end
+
+  # Interface to use MKM. Do not construct directly - see Mkm.client.
+  class Client
+    # @api private
+    def initialize(session, parser)
+      @session = session
+      @parser = parser
+    end
+
+    def games
+      @parser.parse_games @session.get("games")
+    end
+
+    def metaproduct(metaproduct_id)
+      @parser.parse_metaproduct @session.get("metaproduct/#{metaproduct_id}")
+    end
+
+    def product(product_id)
+      @parser.parse_product @session.get("product/#{product_id}")
+    end
+
+    def articles(product_id)
+      @parser.parse_articles @session.get("articles/#{product_id}")
+    end
+
+    def product_by_name(name, game_id=1, language_id=1)
+      @parser.parse_products _search(name, game_id, language_id, true)
+    end
+
+    def search(term, game_id=1, language_id=1)
+      @parser.parse_products _search(term, game_id, language_id, false)
+    end
+
+    private
+
+    def _search(term, game_id, language_id, exact)
+      @session.get("products/#{URI.escape(term)}/#{game_id}/#{language_id}/#{exact}")
+    end
+  end
+
+  # @api private
+  class Session
+    def initialize(user, api_key, http)
+      @user = user
+      @api_key = api_key
+      @http = http
+    end
+
+    def get(partial_path)
+      @http.get("/ws/#{@user}/#{@api_key}/#{partial_path}").body
+    end
+  end
+
+  # @api private
+  class Parser
+    def parse_games(xml)
+      Ox.parse(xml).root.nodes.map {|node| game(node) }
+    end
+
+    def parse_products(xml)
+      Ox.parse(xml).root.nodes.map {|node| product(node) }
+    end
+
+    def parse_product(xml)
+      parse_products(xml).first
+    end
+
+    def parse_articles(xml)
+      Ox.parse(xml).root.nodes.map {|node| article(node) }
+    end
+
+    private
+
+    def game(node)
+      { 
+        :id   => node.idGame.text.to_i,
+        :name => node.locate("name").first.text 
+      }
+    end
+
+    def product(node)
+      { 
+        :id => node.idProduct.text.to_i,
+        :metaproduct_id => node.idMetaproduct.text.to_i,
+        :expansion => node.expansion.text,
+        :rarity => node.rarity.text,
+        :name => node.locate("name").detect {|n| n.languageName.text == "English" }.productName.text,
+        :low_price => (node.priceGuide.LOW.text.to_f * 100).round,
+        :avg_price => (node.priceGuide.AVG.text.to_f * 100).round,
+        :sell_price => (node.priceGuide.SELL.text.to_f * 100).round
+      }  
+    end
+
+    def article(node)
+      {
+        :id => node.idArticle.text.to_i,
+        :product_id => node.idProduct.text.to_i,
+        :comments => node.comments.text,
+        :price => (node.price.to_f * 100).round,
+        :count => node.count.to_i,
+        :language => node.language.languageName.text,
+        :condition => node.condition.text,
+        :foil => node.isFoil.text == "true",
+        :signed => node.isSigned.text == "true",
+        :altered => node.isAltered.text == "true",
+        :playset => node.isPlayset.text == "true",
+        :seller => seller(node.seller)
+      }
+    end
+
+    def seller(node)
+      {
+        :id => node.idUser.text.to_i,
+        :username => node.username.text,
+        :country => node.country.text,
+        :commercial => node.isCommercial.text == "true",
+        :risk_group => node.riskGroup.text.to_i,
+        :reputation => node.reputation.text.to_i,
+      }
+    end
+  end
+end

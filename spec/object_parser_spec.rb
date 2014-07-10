@@ -1,31 +1,4 @@
-require 'rspec'
-require 'ox'
-
-module Mkm
-  class Parser
-    def parse_games(xml)
-      Ox.parse(xml).root.nodes.map do |node|
-        { :id   => node.idGame.text.to_i,
-          :name => node.locate("name").first.text }
-      end
-    end
-
-    def parse_products(xml)
-      Ox.parse(xml).root.nodes.map do |node|
-        { 
-          :id => node.idProduct.text.to_i,
-          :metaproduct_id => node.idMetaproduct.text.to_i,
-          :expansion => node.expansion.text,
-          :rarity => node.rarity.text,
-          :name => node.locate("name").detect {|n| n.languageName.text == "English" }.productName.text,
-          :low_price => (node.priceGuide.LOW.text.to_f * 100).round,
-          :avg_price => (node.priceGuide.AVG.text.to_f * 100).round,
-          :sell_price => (node.priceGuide.SELL.text.to_f * 100).round
-        }
-      end
-    end
-  end
-end
+require 'spec_helper'
 
 describe Mkm::Parser do
   def load_sample_file(file)
