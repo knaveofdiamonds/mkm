@@ -65,11 +65,11 @@ module Mkm
   # @api private
   class Parser
     def parse_games(xml)
-      Ox.parse(xml).root.nodes.map {|node| game(node) }
+      parse(xml) {|node| game(node) }
     end
 
     def parse_products(xml)
-      Ox.parse(xml).root.nodes.map {|node| product(node) }
+      parse(xml) {|node| product(node) }
     end
 
     def parse_product(xml)
@@ -77,15 +77,31 @@ module Mkm
     end
 
     def parse_articles(xml)
-      Ox.parse(xml).root.nodes.map {|node| article(node) }
+      parse(xml) {|node| article(node) }
+    end
+
+    def parse_metaproduct(xml)
+      parse(xml) {|node| metaproduct(node) }.first
     end
 
     private
+
+    def parse(xml)
+      Ox.parse(xml).root.nodes.map {|n| yield n }
+    end
 
     def game(node)
       { 
         :id   => node.idGame.text.to_i,
         :name => node.locate("name").first.text 
+      }
+    end
+
+    def metaproduct(node)
+      {
+        :id => node.idMetaproduct.text.to_i,
+        :name => node.locate("name").detect {|n| n.languageName.text == "English" }.metaproductName.text,
+        :products => node.products.locate("idProduct").map {|n| n.text.to_i }
       }
     end
 
