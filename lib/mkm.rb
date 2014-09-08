@@ -1,6 +1,7 @@
 require 'faraday'
 require 'ox'
 require 'uri'
+require 'simple_oauth'
 
 module Mkm
   # Creates a new MKM client, given a user and an API key. You can
@@ -145,5 +146,22 @@ module Mkm
         :reputation => node.reputation.text.to_i,
       }
     end
+  end
+end
+
+class SimpleOAuth::Header
+  # Monkey-patched to include the URL as the realm - this is what is
+  # required by MKM.
+  def to_s
+    "OAuth realm=\"#{url}\", #{normalized_attributes}"
+  end
+
+  # Do not URI-escape OAuth parameters - this does not work with the
+  # MKM API.
+  def normalized_attributes
+    signed_attributes.
+      sort_by { |k, _| k.to_s }.
+      collect { |k, v| %(#{k}="#{v}") }.
+      join(', ')
   end
 end

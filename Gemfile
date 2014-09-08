@@ -2,6 +2,7 @@ source "http://rubygems.org"
 
 gem "addressable"
 gem "faraday"
+gem "simple_oauth"
 gem "ox"
 
 # Add dependencies to develop your gem here.
