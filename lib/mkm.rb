@@ -7,8 +7,10 @@ module Mkm
   # Creates a new MKM client, given a user and an API key. You can
   # optionally pass a Faraday connection if you want custom HTTP
   # handling.
-  def self.client(user, api_key, http=Faraday.new("https://www.mkmapi.eu"))
-    Client.new(Session.new(user, api_key, http), Parser.new)
+  def self.client(args)
+    http = args[:http] || Faraday.new("https://www.mkmapi.eu")
+    oauth = args[:oauth] or raise "You must provide Oauth Parameters"
+    Client.new(Session.new(http, oauth), Parser.new)
   end
 
   # Interface to use MKM. Do not construct directly - see Mkm.client.
@@ -52,14 +54,22 @@ module Mkm
 
   # @api private
   class Session
-    def initialize(user, api_key, http)
-      @user = user
-      @api_key = api_key
+    def initialize(http, oauth_parameters)
       @http = http
+      @oauth_parameters = oauth_parameters
     end
 
     def get(partial_path)
-      @http.get("/ws/#{@user}/#{@api_key}/#{partial_path}").body
+      path = "/ws/v1.1/#{partial_path}"
+      url = "https://www.mkmapi.eu#{path}"
+
+      @http.get(path, {}, :authorization => oauth_header('get', url) ).body
+    end
+
+    private
+
+    def oauth_header(m, url)
+      SimpleOAuth::Header.new(m, url, {}, @oauth_parameters).to_s
     end
   end
 

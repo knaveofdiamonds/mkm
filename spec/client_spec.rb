@@ -6,6 +6,7 @@ describe Mkm::Client do
   let(:response) { "body" }
 
   subject { described_class.new(session, parser) }
+
   it "retrieves games" do
     expect(session).to receive(:get).with("games").and_return(response)
     expect(parser).to receive(:parse_games).with(response)
