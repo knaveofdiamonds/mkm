@@ -6,10 +6,12 @@ describe Mkm::Session do
 
   it "gets the body of the response" do
     expect(SimpleOAuth::Header).to receive(:new).
-      with("get", "https://www.mkmapi.eu/ws/v1.1/path", {}, :oauth).
+      with("get", "https://www.mkmapi.eu/ws/v1.1/output.json/path",
+           {}, :oauth).
       and_return("auth")
     
-    expect(http).to receive(:get).with("/ws/v1.1/path", {}, :authorization => "auth").
+    expect(http).to receive(:get).
+      with("/ws/v1.1/output.json/path", {}, :authorization => "auth").
       and_return(response)
     
     expect( described_class.new(http, :oauth).get("path") ).

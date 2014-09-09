@@ -1,5 +1,5 @@
 require 'faraday'
-require 'ox'
+require 'oj'
 require 'uri'
 require 'simple_oauth'
 
@@ -12,7 +12,7 @@ module Mkm
     end
 
     def get(partial_path)
-      path = "/ws/v1.1/#{partial_path}"
+      path = "/ws/v1.1/output.json/#{partial_path}"
       url = "https://www.mkmapi.eu#{path}"
 
       @http.get(path, {}, :authorization => oauth_header('get', url) ).body
