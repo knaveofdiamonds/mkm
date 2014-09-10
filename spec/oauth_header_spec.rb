@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SimpleOAuth::Header do
+describe Mkm::OAuthHeader do
   let(:subject) {
     described_class.new("GET", url, {}, params).to_s
   }
