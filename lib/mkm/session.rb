@@ -22,6 +22,7 @@ module Mkm
     end
   end
 
+  # @api private
   class OAuthHeader < SimpleOAuth::Header
     # Overridden to include the URL as the realm - this is what is
     # required by MKM.
